@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+
+  background-image:
+    linear-gradient(270deg,#b8860b,#ffd700,#ffec8b),
+    url("/static/tet.png");
+
+  background-size:600% 600%, cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  animation:bgmove 12s ease infinite;
+  color:#800000;
+  text-align:center;
+  font-family:Arial;
+  overflow:hidden;
+}
+
+@keyframes bgmove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.box{
+  background:rgba(255,215,0,.9);
+  width:320px;
+  padding:25px;
+  border-radius:15px;
+  margin:120px auto;
+  box-shadow:0 0 25px gold;
+  animation:drop 1s ease-out;
+  position:relative;
+  z-index:2;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  background:#ff4500;
+  color:white;
+  border:none;
+  border-radius:8px;
+  margin-top:5px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+a button{background:#00aa00;}
+
+#musicBtn{
+  position:fixed;
+  top:15px;
+  right:15px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  border:none;
+  font-size:20px;
+  background:gold;
+  z-index:3;
+  cursor:pointer;
+}
+
+.flower{
+  position:fixed;
+  top:-30px;
+  font-size:22px;
+  animation:fall linear infinite;
+  z-index:1;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="player"></div>
+<button id="musicBtn">🔊</button>
+
+<div class="box">
+<h2>🧧 Register 🧧</h2>
+
+<form method="post">
+  <input name="username" placeholder="Username" required>
+  <input name="password" type="password" placeholder="Password" required>
+  <button type="submit">Register</button>
+</form>
+
+<p>Đã có tài khoản?</p>
+<a href="{{ url_for('login') }}">
+  <button type="button">Login</button>
+</a>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player, playing=false, ready=false;
+
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player('player',{
+    height:'0',width:'0',
+    videoId:'z_zxcak6b-I',
+    playerVars:{loop:1,playlist:'z_zxcak6b-I'},
+    events:{onReady:()=>ready=true}
+  });
+}
+
+musicBtn.onclick=()=>{
+  if(!ready) return alert("Đợi nhạc load!");
+  if(!playing){
+    player.playVideo();
+    musicBtn.innerHTML="🔇";
+    playing=true;
+  }else{
+    player.pauseVideo();
+    musicBtn.innerHTML="🔊";
+    playing=false;
+  }
+}
+
+function createFlower(){
+  let f=document.createElement("div");
+  f.className="flower";
+  let icons=["🌸","🧧"];
+  f.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),10000);
+}
+setInterval(createFlower,400);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đang vào Dashboard...</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    color:gold;
+    font-family:Arial;
+}
+
+.title{
+    font-size:28px;
+    animation: zoomIn 1.2s ease, glow 1.5s infinite alternate;
+}
+
+@keyframes zoomIn{
+    from{transform:scale(0.3); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 10px gold;}
+    to{text-shadow:0 0 30px orange;}
+}
+</style>
+</head>
+<body>
+
+<div class="title">🧧 Đang vào AI Dashboard... 🧧</div>
+
+<script>
+setTimeout(()=>{
+    window.location.href="/dashboard";
+}, 1800);
+</script>
+
+</body>
+</html>
